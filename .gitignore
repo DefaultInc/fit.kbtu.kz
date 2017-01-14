@@ -1,6 +1,8 @@
 # Database?
-
 db.sqlite3
+
+#PyChar Idea special file
+.idea/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
