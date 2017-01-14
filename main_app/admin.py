@@ -5,10 +5,12 @@ from authorization_app.models import ExtendedUser
 
 # Register your models here.
 
+
 class AbstractUserInline(admin.StackedInline):
     model = ExtendedUser
     can_delete = False
     verbose_name_plural = 'ExtendedUser'
+
 
 class UserAdmin(BaseUserAdmin):
     inlines = (AbstractUserInline, )
