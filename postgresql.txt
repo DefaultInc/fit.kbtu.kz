@@ -1,0 +1,15 @@
+1) download PostgreSQL;
+2) pip install psycopg2;
+3) create .env file;
+    sample .env file:
+      DB_NAME='mydatabase'
+      DB_USER='user'
+      DB_PASSWORD='password'
+      DB_HOST='127.0.0.1'
+      DB_PORT='5432
+4) download updated manage.py
+
+makemigrations
+migrate
+
+that's all
