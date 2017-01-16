@@ -3,12 +3,21 @@ from django.db import models
 from django.core.urlresolvers import reverse
 # MVC pattern
 
-#Uploading image to the special location: (id of the post)/(image name)
+
 def upload_location(instance, filename):
+    """
+    Making location for uploaded files (images)
+    :return: making for everypost unique folder (based on post id),
+    and uploading image to the folder with original filename.
+    #Uploading image to the special location: (id of the post)/(image name)
+    """
     return "%s/%s" % (instance.id, filename)
 
 
 class Post(models.Model):
+    """
+    Main class for news field, main CRUD and other things, just read a comments and names of the variables.
+    """
     #title field
     title = models.CharField(max_length=120)
     #image field
@@ -26,14 +35,32 @@ class Post(models.Model):
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
     def __unicode__(self):
+        """
+        returns title of the post.
+        """
         return self.title
 
     def __str__(self):
+        """
+        returns title of the post.
+        """
         return self.title
 
     def get_absolute_url(self):
-        return reverse("posts:detail", kwargs={"id": self.id})
-    #latest posts on the top
+        """
+        returns absolute url of the post.
+        """
+        return reverse("news_app:detail", kwargs={"id": self.id})
 
     class Meta:
+        """
+        latest news on the top
+        """
         ordering = ["-timestamp", "-updated"]
+
+
+class Comments(models.Model):
+    post_id = models.IntegerField()
+    author = models.TextField()
+    comment = models.TextField(max_length=200)
+    time = models.DateTimeField(auto_now=False, auto_now_add=True)
