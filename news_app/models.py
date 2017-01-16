@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.conf import settings
 # MVC pattern
 
 
@@ -18,6 +19,8 @@ class Post(models.Model):
     """
     Main class for news field, main CRUD and other things, just read a comments and names of the variables.
     """
+    #checking for the user (if not admin (superuser) then he can not create,update or delete)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     #title field
     title = models.CharField(max_length=120)
     #image field
