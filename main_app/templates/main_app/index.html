@@ -1,0 +1,5 @@
+<a href="logout"> GG FF</a>
+<hr>
+{% if request.user.is_authenticated %}
+	<h1>Hi, {{ request.user }}</h1>
+{% endif %}
