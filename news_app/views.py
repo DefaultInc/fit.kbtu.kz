@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -13,8 +13,8 @@ def post_create(request):
     checking all of the fields, if form is valid then saving the post, if there is no image, it will upload it anyway,
     give a message that post created and redirecting to the post itself
     """
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
+    if not request.user.extendeduser.is_manager:
+        return render(request, "posts/Http404.html")
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
@@ -73,8 +73,8 @@ def post_update(request, id=None):
     Takes an instance, form;
     if form is valid opens view with editing posts.
     """
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
+    if not request.user.extendeduser.is_manager:
+        return render(request, "posts/Http404.html")
     instance = get_object_or_404(Post, id=id)
     form = PostForm(request.POST or None, request.FILES or None, instance=instance)
     if form.is_valid():
@@ -96,8 +96,8 @@ def post_delete(request, id=None):
     """
     Takes an id, by id deleting the post.
     """
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
+    if not request.user.extendeduser.is_manager:
+        return render(request, "posts/Http404.html")
     instance = get_object_or_404(Post, id=id)
     instance.delete()
     messages.success(request, "Successfully deleted!")
