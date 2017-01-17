@@ -3,8 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpRespons
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .forms import PostForm
-from .models import Post
+from .forms import PostForm, CommentsForm
+from .models import Post, Comments
 
 
 def post_create(request):
@@ -36,9 +36,19 @@ def post_detail(request, id=None):
     taking id or 404 if it is not exist, give the title and instance to the view.
     """
     instance = get_object_or_404(Post, id=id)
+    comments_all = Comments.objects.filter(post_id=id)
+    form = CommentsForm(request.POST or None)
+    if form.is_valid():
+        new_comment = form.save(commit=False)
+        new_comment.author = request.user
+        new_comment.post_id = id
+        new_comment.save()
+
     context = {
         "title": instance.title,
         "instance": instance,
+        "form": form,
+        "comments_all": comments_all,
     }
     return render(request, "posts/post_detail.html", context)
 

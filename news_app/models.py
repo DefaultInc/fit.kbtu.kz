@@ -2,6 +2,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from authorization_app.models import ExtendedUser
+from django.contrib.auth.models import User
 # MVC pattern
 
 
@@ -64,6 +66,7 @@ class Post(models.Model):
 
 class Comments(models.Model):
     post_id = models.IntegerField()
-    author = models.TextField()
-    comment = models.TextField(max_length=200)
+    author = models.ForeignKey(User)
+    comment_content = models.TextField(max_length=200)
     time = models.DateTimeField(auto_now=False, auto_now_add=True)
+
