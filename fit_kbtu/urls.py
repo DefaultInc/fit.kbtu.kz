@@ -15,12 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.conf import settings
-from django.conf.urls.static import static
+from authorization_app import views as auth
+from main_app import views as main
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^news_app/', include("news_app.urls", namespace='news_app')),
+    url(r'^login/', auth.login_view),
+    url(r'^logout/', auth.logout_view),
+    url(r'^$', main.main_view),
 ]
 
 if settings.DEBUG:
