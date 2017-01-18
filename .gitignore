@@ -1,4 +1,4 @@
-# Database?
+# Database
 db.sqlite3
 
 #PyChar Idea special file
@@ -54,3 +54,4 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+news_app/migrations/0001_initial.py

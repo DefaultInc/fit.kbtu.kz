@@ -65,8 +65,11 @@ class Post(models.Model):
 
 
 class Comments(models.Model):
-    post_id = models.IntegerField()
+    post_id = models.ForeignKey(Post)
     author = models.ForeignKey(User)
     comment_content = models.TextField(max_length=200)
     time = models.DateTimeField(auto_now=False, auto_now_add=True)
+
+    class Meta:
+        ordering = ["-id"]
 

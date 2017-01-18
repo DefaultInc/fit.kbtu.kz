@@ -2,11 +2,13 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 
 from .forms import PostForm, CommentsForm
 from .models import Post, Comments
 
 
+@login_required(login_url='/login/')
 def post_create(request):
     """
     post creating function.
@@ -30,6 +32,7 @@ def post_create(request):
     return render(request, "posts/post_form.html", context)
 
 
+@login_required(login_url='/login/')
 def post_detail(request, id=None):
     """
     post details function,
@@ -41,7 +44,7 @@ def post_detail(request, id=None):
     if form.is_valid():
         new_comment = form.save(commit=False)
         new_comment.author = request.user
-        new_comment.post_id = id
+        new_comment.post_id = instance
         new_comment.save()
 
     context = {
@@ -78,6 +81,7 @@ def post_list(request):
     return render(request, "posts/post_list.html", context)
 
 
+@login_required(login_url='/login/')
 def post_update(request, id=None):
     """
     Takes an instance, form;
@@ -102,6 +106,7 @@ def post_update(request, id=None):
     return render(request, "posts/post_form.html", context)
 
 
+@login_required(login_url='/login/')
 def post_delete(request, id=None):
     """
     Takes an id, by id deleting the post.
