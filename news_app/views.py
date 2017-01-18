@@ -5,7 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 
 from .forms import PostForm, CommentsForm
-from .models import Post, Comments
+from .models import Post, Comment
 
 
 @login_required(login_url='/login/')
@@ -39,7 +39,7 @@ def post_detail(request, id=None):
     taking id or 404 if it is not exist, give the title and instance to the view.
     """
     instance = get_object_or_404(Post, id=id)
-    comments_all = Comments.objects.filter(post_id=id)
+    comments_all = Comment.objects.filter(post_id=id)
     form = CommentsForm(request.POST or None)
     if form.is_valid():
         new_comment = form.save(commit=False)

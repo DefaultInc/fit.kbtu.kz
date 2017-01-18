@@ -64,7 +64,7 @@ class Post(models.Model):
         ordering = ["-timestamp", "-updated"]
 
 
-class Comments(models.Model):
+class Comment(models.Model):
     post_id = models.ForeignKey(Post)
     author = models.ForeignKey(User)
     comment_content = models.TextField(max_length=200)
