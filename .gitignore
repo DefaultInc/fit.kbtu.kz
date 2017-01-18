@@ -3,7 +3,6 @@ db.sqlite3
 
 #PyChar Idea special file
 .idea/
-
 migrations/
 
 # Byte-compiled / optimized / DLL files
