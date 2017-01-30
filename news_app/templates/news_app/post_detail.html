@@ -15,10 +15,6 @@
         {{ instance.content|linebreaks }} <br>
         <div>
             <h1>Comments</h1>
-            {% for comment in comments %}
-                <h3> {{ comment.author.get_full_name }} | {{ comment.time|timesince }} ago </h3>
-                <p> {{ comment.content }} </p>
-            {% endfor %}
             {% if request.user.is_authenticated %}
                 <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
                     {{ form.as_p }}
@@ -26,6 +22,10 @@
                 </form>
                 <hr/>
             {% endif %}
+            {% for comment in comments %}
+                <h3> {{ comment.author.get_full_name }} | {{ comment.time|timesince }} ago </h3>
+                <p> {{ comment.content }} </p>
+            {% endfor %}
         </div>
     </div>
 {% endblock content %}
