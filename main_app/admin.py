@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from authorization_app.models import ExtendedUser
+from auth_app.models import ExtendedUser
 
 # Register your models here.
 
