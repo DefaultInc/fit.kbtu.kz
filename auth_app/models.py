@@ -11,8 +11,8 @@ class ExtendedUser(models.Model):
     is_manager = models.BooleanField(default=False)
     #add any field you need
 
-def create_extended_user(sender, **kwargs):
-    if kwargs["created"]:
-        ExtendedUser.objects.get_or_create(user=kwargs["instance"])
+    def create_extended_user(sender, **kwargs):
+        if kwargs["created"]:
+            ExtendedUser.objects.get_or_create(user=kwargs["instance"])
 
-post_save.connect(create_extended_user, sender=User)
+    post_save.connect(create_extended_user, sender=User)
