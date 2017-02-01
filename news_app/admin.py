@@ -17,6 +17,14 @@ class PostModelAdmin(admin.ModelAdmin):
     class Meta:
         model = Post
 
-admin.site.register(Post, PostModelAdmin)
-admin.site.register(Comment)
 
+class CommentModelAdmin(admin.ModelAdmin):
+    """
+    Admin fields
+    """
+    list_display = ["id", "comment_content"]
+    class Meta:
+        model = Comment
+
+admin.site.register(Post, PostModelAdmin)
+admin.site.register(Comment, CommentModelAdmin)

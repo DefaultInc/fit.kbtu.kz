@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import PostForm, CommentsForm
 from .models import Post, Comment
 
-
 @login_required(login_url='/login/')
 def post_create(request):
     """
@@ -38,6 +37,7 @@ def post_detail(request, id=None):
     post details function,
     taking id or 404 if it is not exist, give the title and instance to the view.
     """
+    print(id)
     instance = get_object_or_404(Post, id=id)
     comments_all = Comment.objects.filter(post_id=id)
     form = CommentsForm(request.POST or None)
@@ -113,7 +113,22 @@ def post_delete(request, id=None):
     """
     if not request.user.extendeduser.is_manager:
         return render(request, "posts/Http404.html")
-    instance = get_object_or_404(Post, id=id)
-    instance.delete()
-    messages.success(request, "Successfully deleted!")
+    if request.method == 'POST':
+        instance = get_object_or_404(Post, id=id)
+        instance.delete()
+        messages.success(request, "Post successfully deleted!")
     return redirect("news_app:list")
+
+def comment_delete(request, id=None, ins=None):
+    '''
+    Takes an id of comment and ins==id of Post,
+    by id of comment deletes comment
+    '''
+    new_comment = get_object_or_404(Comment, id=id)
+    instance = get_object_or_404(Post, id=ins)
+    print(id)
+    if request.method == "POST":
+        print(new_comment.id)
+        new_comment.delete()
+        messages.success(request, "Your comment successfully deleted!")
+    return redirect(instance.get_absolute_url())

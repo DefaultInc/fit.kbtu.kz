@@ -5,35 +5,45 @@
 
 {% block content %}
     <div class="col-sm-6 col-sm-offset-3">
+      {% if instance.image %}
+      <img src="{{ instance.image.url }}" class="img-responsive" />
+      {% endif %}
 
-    {% if instance.image %}
-    <img src="{{ instance.image.url }}" class="img-responsive" />
-    {% endif %}
+      <h1>{{ title }} <small>{{ instance.timestamp }}</small> </h1>
 
-    <h1>{{ title }} <small>{{ instance.timestamp }}</small> </h1>
+      {% if instance.user.get_full_name %}
+      <p>Author: {{ instance.user.get_full_name }}</p>
+      {% endif %}
 
-    {% if instance.user.get_full_name %}
-    <p>Author: {{ instance.user.get_full_name }}</p>
-    {% endif %}
+      {{ instance.content|linebreaks }} <br>
 
-    {{ instance.content|linebreaks }} <br>
+      <form action="{% url 'news_app:delete' id=instance.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-default" value="Delete Post">
+      </form>
 
-    <div>
-         <h1>Comments</h1>
+      <div>
+          <h1>Comments</h1>
+          {% if request.user.is_authenticated %}
+          <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+              {{ form.as_p }}
+              <input type="submit" class="btn btn-default" value="Submit">
+          </form>
+          <hr/>
+          {% endif %}
 
-        {% if request.user.is_authenticated %}
-        <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" class="btn btn-default" value="Submit">
-        </form>
-        <hr/>
-        {% endif %}
-
-        {% for comment in comments_all %}
-            <h3> {{ comment.author.get_full_name }} | {{ comment.time|timesince }} ago </h3>
+          {% for comment in comments_all %}
+            <h3> {{ comment.author }} | {{ comment.id }} | {{ comment.time|timesince }} ago </h3>
             <p> {{ comment.comment_content }} </p>
-        {% endfor %}
-    </div>
+            {% if request.user == comment.author %}
+              <p>THIS IS YOUR COMMENT</p>
+              <form action="{% url 'news_app:comment_delete' id=comment.id ins=instance.id%}" method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-default" value="Delete Comment">
+              </form>
+            {% endif %}
+          {% endfor %}
+      </div>
 
 
     </div>
