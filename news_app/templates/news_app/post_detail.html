@@ -13,6 +13,12 @@
             <p>Author: {{ instance.user.get_full_name }}</p>
         {% endif %}
         {{ instance.content|linebreaks }} <br>
+
+        <form action="{% url 'news_app:post_delete' id=instance.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-default" value="Delete Post">
+        </form>
+
         <div>
             <h1>Comments</h1>
             {% if request.user.is_authenticated %}
@@ -25,6 +31,13 @@
             {% for comment in comments %}
                 <h3> {{ comment.author.get_full_name }} | {{ comment.time|timesince }} ago </h3>
                 <p> {{ comment.content }} </p>
+                {% if request.user == comment.author %}
+                    <p>THIS IS YOUR COMMENT</p>
+                    <form action="{% url 'news_app:comment_delete' comment_id=comment.id post_id=instance.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-default" value="Delete Comment">
+                    </form>
+                {% endif %}
             {% endfor %}
         </div>
     </div>

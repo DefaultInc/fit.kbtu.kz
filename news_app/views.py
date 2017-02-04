@@ -40,10 +40,10 @@ def post_detail_view(request, id=None):
     comments = Comment.objects.filter(post=instance)
     form = CommentForm(request.POST or None)
     if form.is_valid():
-        new_comment = form.save(commit=False)
-        new_comment.author = request.user
-        new_comment.post = instance
-        new_comment.save()
+        comment = form.save(commit=False)
+        comment.author = request.user
+        comment.post = instance
+        comment.save()
     context = {
         "title": instance.title,
         "instance": instance,
@@ -112,4 +112,17 @@ def post_delete_view(request, id=None):
     instance = get_object_or_404(Post, id=id)
     instance.delete()
     messages.success(request, "Successfully deleted!")
-    return redirect("news_app:list")
+    return redirect("news_app:post_list")
+
+
+def comment_delete_view(request, comment_id=None, post_id=None):
+    '''
+    Takes an id of comment and ins==id of Post,
+    by id of comment deletes comment
+    '''
+    comment = get_object_or_404(Comment, id=comment_id)
+    instance = get_object_or_404(Post, id=post_id)
+    if request.method == "POST":
+        comment.delete()
+        messages.success(request, "Your comment successfully deleted!")
+    return redirect(instance.get_absolute_url())

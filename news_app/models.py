@@ -52,7 +52,7 @@ class Post(models.Model):
         """
         returns absolute url of the post.
         """
-        return reverse("news_app:detail", kwargs={"id": self.id})
+        return reverse("news_app:post_detail", kwargs={"id": self.id})
 
     class Meta:
         """
