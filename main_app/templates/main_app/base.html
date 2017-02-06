@@ -1,0 +1,284 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>FIT portal</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css'>
+
+    <!-- Bootstrap core CSS -->
+    <link href='{% static 'css/bootstrap.min.css' %}' rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href='{% static 'css/mdb.min.css' %}' rel="stylesheet">
+    <link rel="stylesheet" href='{% static 'css/modal.style.css' %}'>
+
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <!-- Template styles -->
+    <style rel="stylesheet">
+        /* TEMPLATE STYLES */
+
+        main {
+            padding-top: 3rem;
+            padding-bottom: 2rem;
+        }
+
+        .widget-wrapper {
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 2rem;
+        }
+
+        .extra-margins {
+            margin-top: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .divider-new {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body class="hidden-sn mdb-skin">
+
+
+<header>
+
+    <!--Navbar-->
+    <nav class="navbar navbar-dark primary-color-dark">
+
+        <!-- Collapse button-->
+        <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx">
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <div class="container">
+
+            <!--Collapse content-->
+
+            <!--Navbar Brand-->
+            <!--  <a href="#" data-activates="slide-out" class="button-collapse navbar-brand"><i class="fa fa-bars"></i></a>-->
+            <a class="navbar-brand" href="{% url 'index' %}">FIT</a>
+            <!--target="_blank"-->
+            <!--Links-->
+            <div class="collapse navbar-toggleable-xs" id="collapseEx">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Forum</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Docs</a>
+                    </li>
+
+                </ul>
+                <!--Search form-->
+
+
+                <ul class="nav navbar-nav" style="float:right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">Login</a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.Collapse content-->
+
+        </div>
+
+    </nav>
+    <!--/.Navbar-->
+
+</header>
+
+<main>
+
+    <!--Main layout-->
+    <div class="container">
+        <div class="row">
+
+            <!--Sidebar-->
+            <div class="col-md-3">
+
+                <div class="widget-wrapper">
+                    <h4>Services</h4>
+                    <br>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">Forms</a>
+                        <a href="#" class="list-group-item">Application</a>
+                        <a href="#" class="list-group-item">Profile</a>
+                        <a href="#" class="list-group-item">FAQs</a>
+                    </div>
+                </div>
+
+                <div class="widget-wrapper">
+                    <h4>Any questions?</h4>
+                    <br>
+                    <div class="card">
+                        <div class="card-block">
+
+                            <p><strong>FIT</strong></p>
+                            <a tel="+7 727  272 46 65"><i class="fa fa-phone"></i> +7 727 272 46 65 (internal
+                                540)</a><br>
+                            Room: 263 <br>
+                            Dean: Assel Akzhalova <br>
+                            <i class="fa fa-envelope"></i><a href="mailto:assel.akzh@gmail.com">E-mail:
+                            assel.akzh@gmail.com</a>
+                            <hr>
+                            <p><strong>ThinkIT</strong></p>
+                            <a tel="+7 707 277 71 39"><i class="fa fa-mobile-phone"></i> +7 707 277 71 39</a><br>
+                            Room: 270 <br>
+
+                            <hr>
+                            <p><strong>KBTU</strong></p>
+                            <a tel="+7 727 250 46 58"><i class="fa fa-phone"></i> Call-center: +7 727 250 46 58</a> <br>
+                            <i class="fa fa-envelope"></i> E-mail: info@kbtu.kz
+                            <p>OR: room 149 (internal number 375)</p>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--/.Sidebar-->
+            <!--/.Main layout-->
+            {% block content %}
+            {% endblock %}
+            <!-- Button trigger modal -->
+        </div>
+    </div>
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="box">
+
+                <div class="title">LOGIN</div>
+
+                <div class="input">
+                    <label for="name">Username</label>
+                    <input type="text" name="name" id="name">
+                    <span class="spin"></span>
+                </div>
+
+                <div class="input">
+                    <label for="pass">Password</label>
+                    <input type="password" name="pass" id="pass">
+                    <span class="spin"></span>
+                </div>
+
+                <div class="button login">
+                    <button><span>GO</span> <i class="fa fa-check"></i></button>
+                </div>
+
+                <a href="" class="pass-forgot">Forgot your password?</a>
+
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+
+<!--Footer-->
+<footer class="page-footer center-on-small-only primary-color-dark">
+
+    <!--Footer Links-->
+    <div class="container-fluid">
+        <div class="row">
+
+            <!--First column-->
+            <div class="col-md-3 offset-lg-1 hidden-lg-down">
+                <h5 class="title">ABOUT THIS WEBSITE</h5>
+                <p>FIT portal is created for educational purposes for students of KBTU </p>
+            </div>
+            <!--/.First column-->
+
+            <hr class="hidden-md-up">
+
+            <!--Second column-->
+            <div class="col-lg-3 col-md-6 offset-lg-1">
+                <h5 class="title">Website navigation</h5>
+                <ul>
+                    <li><a href="#">Forum</a></li>
+                    <li><a href="#">Clubs</a></li>
+                    <li><a href="#">Register</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Docs</a></li>
+                </ul>
+            </div>
+            <!--/.Second column-->
+
+            <hr class="hidden-md-up">
+
+            <!--Third column-->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="title">Available operations</h5>
+                <ul>
+                    <li><a href="#">Fill the form</a></li>
+                    <li><a href="#">Fill the application</a></li>
+                    <li><a href="#">Ask a question</a></li>
+                </ul>
+            </div>
+            <!--/.Third column-->
+
+
+        </div>
+    </div>
+    <!--/.Footer Links-->
+
+    <hr>
+
+
+    <!--Copyright-->
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            © 2017 Copyright: <a href="http://www.kbtu.kz">KBTU</a>
+        </div>
+    </div>
+    <!--/.Copyright-->
+
+</footer>
+<!--/.Footer-->
+
+
+<!-- SCRIPTS -->
+<script type="text/javascript" src="{% static "js/my.js" %}"></script>
+
+<!-- MDB core JavaScript -->
+
+<!-- JQuery -->
+<script type="text/javascript" src="{% static "js/jquery-2.2.3.min.js" %}"></script>
+
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="{% static "js/tether.min.js" %}"></script>
+
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="{% static "js/mdb.min.js" %}"></script>
+
+
+</body>
+
+</html>

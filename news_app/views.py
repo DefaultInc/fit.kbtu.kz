@@ -24,9 +24,10 @@ def post_create_view(request):
         # message success
         messages.success(request, "Successfully Created!")
         return HttpResponseRedirect(instance.get_absolute_url())
-    context = {
+    context_dict = {
         "form": form,
     }
+    context = context_dict.items()
     return render(request, "news_app/post_create.html", context)
 
 

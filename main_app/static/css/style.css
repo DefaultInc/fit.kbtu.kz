@@ -1,0 +1,10 @@
+/* YOUR CUSTOM STYLES */
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.img-center{
+  margin: auto;
+}
