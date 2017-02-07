@@ -1,6 +1,6 @@
-<head>
-</head>
-<body>
+{% extends 'main_app/base.html' %}
+{% load staticfiles %}
+{% block content %}
 <form action="" method="post">
     {% csrf_token %}
     <input type="hidden" name="submitted" value="true">
@@ -37,6 +37,6 @@
         </tr>
         </tbody>
     </table>
-    <input type="hidden" name="ccid" value="eb73a80927ce22de396cf0a139267f90"></form>
-<Paste>
-</body>
+    <input type="hidden" name="ccid" value="eb73a80927ce22de396cf0a139267f90">
+</form>
+{% endblock content %}

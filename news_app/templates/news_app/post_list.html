@@ -1,42 +1,114 @@
 {% extends "main_app/base.html" %}
+{% load staticfiles %}
+{#{% block content %}#}
+{#    <div class="col-sm-6 col-sm-offset-3">#}
+{#        <h1> {{ title }} </h1>#}
+{#        {% for obj in object_list %}#}
+{#            <div class="row">#}
+{#                <div class="col-sm-12">#}
+{#                    <div class="thumbnail">#}
+{#                        {% if obj.image %}#}
+{#                            <img src="{{ obj.image.url }}" class="img-responsive"/>#}
+{#                        {% endif %}#}
+{#                        <!--<img src="..." alt="..."> -->#}
+{#                        <div class="caption">#}
+{#                            <h3><a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a>#}
+{#                                <small> {{ obj.timestamp|timesince }} ago</small>#}
+{#                            </h3>#}
+{#                            <p>{% if obj.user.get_full_name %}#}
+{#                                Author: {{ obj.user.get_full_name }}#}
+{#                            {% endif %}</p>#}
+{#                            <p> {{ obj.content|linebreaks|truncatechars:110 }}</p>#}
+{#                            <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">View</a></p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <hr/>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#        <div class="pagination">#}
+{#    <span class="step-links">#}
+{#        {% if object_list.has_previous %}#}
+{#            <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}">previous</a>#}
+{#        {% endif %}#}
+{#        <span class="current">#}
+{#            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.#}
+{#        </span>#}
+{#        {% if object_list.has_next %}#}
+{#            <a href="?{{ page_request_var }}={{ object_list.next_page_number }}">next</a>#}
+{#        {% endif %}#}
+{#    </span>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock content %}#}
+
 {% block content %}
-    <div class="col-sm-6 col-sm-offset-3">
-        <h1> {{ title }} </h1>
-        {% for obj in object_list %}
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="thumbnail">
-                        {% if obj.image %}
-                            <img src="{{ obj.image.url }}" class="img-responsive"/>
-                        {% endif %}
-                        <!--<img src="..." alt="..."> -->
-                        <div class="caption">
-                            <h3><a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a>
-                                <small> {{ obj.timestamp|timesince }} ago</small>
-                            </h3>
-                            <p>{% if obj.user.get_full_name %}
-                                Author: {{ obj.user.get_full_name }}
-                            {% endif %}</p>
-                            <p> {{ obj.content|linebreaks|truncatechars:110 }}</p>
-                            <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">View</a></p>
+            <div class="col-md-7">
+                <!--First row-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="divider-new">
+                            <h2 class="h2-responsive">What's new?</h2>
                         </div>
                     </div>
                 </div>
-                <hr/>
+                <!--  First row-->
+                <!--    <hr class="extra-margins">-->
+
+                <!--Second row-->
+                <div class="row">
+                    <!--First columnn-->
+                    {% for obj in object_list %}
+                    <div class="col-lg-12">
+                        <!--Card-->
+                        <div class="card">
+
+                            <!--Card image-->
+                            <div class="view overlay hm-white-slight">
+                                {% if obj.image %}
+                                <img src="{{ obj.image.url }}" class="img-responsive center-block" alt=""/>
+                                 {% endif %}
+                                <a href="#">
+                                    <div class="mask"></div>
+                                </a>
+                            </div>
+                            <!--/.Card image-->
+
+                            <!--Card content-->
+                            <div class="card-block">
+                                <!--Title-->
+                                <h4 class="card-title">{{ obj.title }}</h4>
+                                <!--Text-->
+                                <p class="card-text">{{ obj.content|linebreaks|truncatechars:110 }}</p>
+                                <a href="{{ obj.get_absolute_url }}" class="link-text"><h5>Read more </h5></a>
+                            </div>
+                            <!--/.Card content-->
+
+                        </div>
+                        <!--/.Card-->
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+                <!--/.Second row-->
+
+                <div class="row">
+                    <nav aria-label="...">
+                        <!--/.Main column-->
+                    </nav>
+                </div>
             </div>
-        {% endfor %}
-        <div class="pagination">
-    <span class="step-links">
-        {% if object_list.has_previous %}
-            <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}">previous</a>
-        {% endif %}
-        <span class="current">
-            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
-        </span>
-        {% if object_list.has_next %}
-            <a href="?{{ page_request_var }}={{ object_list.next_page_number }}">next</a>
-        {% endif %}
-    </span>
-        </div>
-    </div>
-{% endblock content %}
+            <div class="col-md-2">
+                <div class="widget-wrapper">
+                    <h4>Tools</h4>
+                    <br>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">Search</a>
+                        <a href="#" class="list-group-item">Events</a>
+                        <a href="#" class="list-group-item">Courses</a>
+                        <a href="#" class="list-group-item">Master Classes</a>
+                    </div>
+                </div>
+            </div>
+    {% endblock content%}

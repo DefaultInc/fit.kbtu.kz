@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^news/', include("news_app.urls", namespace='news_app')),
     url(r'^auth/', include("auth_app.urls", namespace='auth_app')),
-    url(r'^$', include("main_app.urls")),
+    url(r'^', include("main_app.urls")),
 ]
 
 if settings.DEBUG:
