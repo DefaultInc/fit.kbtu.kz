@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Document, Member
+from .models import Claim, Member
 # Register your models here.
 
-admin.site.register(Document)
+admin.site.register(Claim)
 admin.site.register(Member)

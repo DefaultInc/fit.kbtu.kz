@@ -1,0 +1,14 @@
+{% extends "main_app/base.html" %}
+{% block head_title %}{{ instance.title }} | {{ block.super }}
+{% endblock head_title %}
+{% block content %}
+    <div class="col-sm-6 col-sm-offset-3">
+        <h1>{{ instance.title }}
+        </h1>
+        <h1>
+            {{ instance.reason }}
+        </h1>
+        {{ instance.content|linebreaks }} <br>
+        <a class="nav-item" href="{% url 'doc_app:document_print' instance.id %}">Print</a>
+    </div>
+{% endblock content %}

@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^news/', include("news_app.urls", namespace='news_app')),
     url(r'^auth/', include("auth_app.urls", namespace='auth_app')),
     url(r'^', include("main_app.urls")),
+    url(r'^doc/', include("doc_app.urls", namespace='doc_app')),
 ]
 
 if settings.DEBUG:

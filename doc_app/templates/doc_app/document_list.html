@@ -1,0 +1,13 @@
+{% extends "main_app/base.html" %}
+{% block content %}
+    <a href="{% url 'doc_app:document_create'%}">Create new document</a>
+    {% for claim in claims %}
+        <div class="card-block">
+            <!--Title-->
+            <h4 class="card-title">{{ claim.title }}</h4>
+            <!--Text-->
+            <p class="card-text">{{ claim.content|linebreaks|truncatechars:110 }}</p>
+            <a href="{{ claim.get_absolute_url }}" class="link-text"><h5>Read more </h5></a>
+        </div>
+    {% endfor %}
+{% endblock content %}
