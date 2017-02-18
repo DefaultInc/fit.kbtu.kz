@@ -29,16 +29,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'main_app',
-    'auth_app',
-    'news_app',
-    'doc_app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'main_app',
+    'news_app',
+    'doc_app',
+    'simple_email_confirmation',
+    'auth_app',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,14 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
+
+# User settings
+AUTH_USER_MODEL = "auth_app.User"
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'fit.kbtu.kz@gmail.com'
+EMAIL_HOST_PASSWORD = 'KbtuUser2017!'
+DEFAULT_FROM_EMAIL = 'fit.kbtu.kz@gmail.com'
+DEFAULT_TO_EMAIL = 'emailforanypurposes@gmail.com'
