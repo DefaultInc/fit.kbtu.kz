@@ -135,6 +135,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'fit.kbtu.kz@gmail.com'
-EMAIL_HOST_PASSWORD = 'KbtuUser2017!'
+EMAIL_HOST_PASSWORD = 'SECRET!'
 DEFAULT_FROM_EMAIL = 'fit.kbtu.kz@gmail.com'
 DEFAULT_TO_EMAIL = 'emailforanypurposes@gmail.com'
