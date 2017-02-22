@@ -1,18 +1,70 @@
 from django.db import models
 from django.db.models.signals import post_save
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser, User, BaseUserManager
+from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin
+
 
 # Create your models here.
+class MyUserManager(BaseUserManager):
+    def create_user(self, email, password=None):
+        if not email:
+            raise ValueError('Users must have an email address')
 
-class ExtendedUser(models.Model):
-    contact_phone = models.CharField(max_length=128, null=True, blank=True)
-    additional_info = models.CharField(max_length=256, null=True, blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    is_manager = models.BooleanField(default=False)
-    #add any field you need
+        user = self.model(
+            email=self.normalize_email(email),
+        )
 
-    def create_extended_user(sender, **kwargs):
-        if kwargs["created"]:
-            ExtendedUser.objects.get_or_create(user=kwargs["instance"])
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
-    post_save.connect(create_extended_user, sender=User)
+    def create_superuser(self, email, password):
+
+        user = self.create_user(email,
+            password=password,
+        )
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
+
+
+class User(SimpleEmailConfirmationUserMixin, AbstractBaseUser):
+    email = models.EmailField(
+        verbose_name='email address',
+        max_length=255,
+        unique=True,
+    )
+
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+
+    objects = MyUserManager()
+
+    USERNAME_FIELD = 'email'
+    def __str__(self):
+        return self.email
+
+    def get_full_name(self):
+        # The user is identified by their email address
+        return self.email
+
+    def get_short_name(self):
+        # The user is identified by their email address
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        # Simplest possible answer: All admins are staff
+        return self.is_admin
+
