@@ -1,0 +1,7 @@
+Django==1.10.5
+lxml==3.7.2
+olefile==0.44
+Pillow==4.0.0
+python-docx==0.8.6
+six==1.10.0
+Python==3.5.2

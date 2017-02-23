@@ -15,11 +15,18 @@ def upload_location(instance, filename):
     """
     return "%s/%s" % (instance.id, filename)
 
+class PostType(models.Model):
+    post_type_name = models.CharField(null=True, blank=True, max_length=120)
+
+    def __str__(self):
+        return self.post_type_name
+
 class Post(models.Model):
     """
     Main class for news field, main CRUD and other things, just read a comments and names of the variables.
     """
     # checking for the user (if not admin (superuser) then he can not create,update or delete)
+    post_type = models.ForeignKey(PostType, null=True)
     author = models.ForeignKey(User, default=1)
     # title field
     title = models.CharField(max_length=120, null=True, blank=True)

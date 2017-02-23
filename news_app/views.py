@@ -55,13 +55,13 @@ def post_detail_view(request, id=None):
     return render(request, "news_app/post_detail.html", context)
 
 
-def post_list_view(request):
+def post_list_view(request, id=None):
     """
     shows list of the posts.
      queryset_list - is all of the posts, and there is a paginator in the view.
      code taken from Django documentation - for paginator, check it in the Official Documentation.
     """
-    queryset_list = Post.objects.all()
+    queryset_list = Post.objects.filter(post_type_id=id)
     paginator = Paginator(queryset_list, 20)  # Show 20 contacts per page
     page_request_var = "page"
     page = request.GET.get(page_request_var)
