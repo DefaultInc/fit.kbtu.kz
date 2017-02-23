@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models.signals import post_save
-from django.contrib.auth.models import AbstractBaseUser, AbstractUser, User, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserManager, Group, PermissionsMixin
 from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin
 
 
@@ -10,25 +10,22 @@ class MyUserManager(BaseUserManager):
         if not email:
             raise ValueError('Users must have an email address')
 
-        user = self.model(
-            email=self.normalize_email(email),
-        )
+        user = self.model(email=self.normalize_email(email), )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
     def create_superuser(self, email, password):
-
         user = self.create_user(email,
-            password=password,
-        )
+                                password=password,
+                                )
         user.is_admin = True
         user.save(using=self._db)
         return user
 
 
-class User(SimpleEmailConfirmationUserMixin, AbstractBaseUser):
+class User(SimpleEmailConfirmationUserMixin, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
@@ -41,6 +38,7 @@ class User(SimpleEmailConfirmationUserMixin, AbstractBaseUser):
     objects = MyUserManager()
 
     USERNAME_FIELD = 'email'
+
     def __str__(self):
         return self.email
 
@@ -68,3 +66,5 @@ class User(SimpleEmailConfirmationUserMixin, AbstractBaseUser):
         # Simplest possible answer: All admins are staff
         return self.is_admin
 
+    def is_manager(user):
+        return user.groups.filter(name = 'Manager').exists()
