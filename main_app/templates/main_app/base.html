@@ -17,7 +17,6 @@
 
     <!-- Material Design Bootstrap -->
     <link href='{% static 'css/mdb.min.css' %}' rel="stylesheet">
-    <link rel="stylesheet" href='{% static 'css/modal.style.css' %}'>
 
     <script
             src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -62,17 +61,12 @@
         </button>
 
         <div class="container">
-
-
             <!--  <a href="#" data-activates="slide-out" class="button-collapse navbar-brand"><i class="fa fa-bars"></i></a>-->
             <a class="navbar-brand" href="{% url 'index' %}">FIT</a>
             <div class="collapse navbar-toggleable-xs" id="collapseEx">
                 <ul class="nav navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Forum</a>
+                        <a class="nav-link" href="{% url 'index' %}">Home<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'doc_app:document_list' %}">Docs</a>
@@ -80,16 +74,22 @@
 
                 </ul>
 
-
-                <ul class="nav navbar-nav" style="float:right">
-                    <li class="nav-item">
-{#                        <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">Register</a>#}
-                    </li>
-                    <li class="nav-item">
-                        <!--data-toggle="modal" data-target="#myModal"-->
-                        <a class="nav-link" href="{% url 'auth_app:login' %}" >Login</a>
-                    </li>
-                </ul>
+                {% if request.user.is_authenticated %}
+                    <ul class="nav navbar-nav" style="float:right">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'auth_app:logout' %}">Logout</a>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="nav navbar-nav" style="float:right">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'auth_app:register' %}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'auth_app:login' %}">Login</a>
+                        </li>
+                    </ul>
+                {% endif %}
             </div>
 
         </div>
@@ -135,56 +135,20 @@
                             <p><strong>ThinkIT</strong></p>
                             <a tel="+7 707 277 71 39"><i class="fa fa-mobile-phone"></i> +7 707 277 71 39</a><br>
                             Room: 270 <br>
-
                             <hr>
                             <p><strong>KBTU</strong></p>
                             <a tel="+7 727 250 46 58"><i class="fa fa-phone"></i> Call-center: +7 727 250 46 58</a> <br>
                             <i class="fa fa-envelope"></i> E-mail: info@kbtu.kz
                             <p>OR: room 149 (internal number 375)</p>
-
-
                         </div>
                     </div>
                 </div>
-
             </div>
             {% block content %}
             {% endblock %}
         </div>
     </div>
 </main>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="box">
-
-                <div class="title">LOGIN</div>
-
-                <div class="input">
-                    <label for="name">Username</label>
-                    <input type="text" name="login" id="name">
-                    <span class="spin"></span>
-                </div>
-
-                <div class="input">
-                    <label for="pass">Password</label>
-                    <input type="password" name="pass" id="pass">
-                    <span class="spin"></span>
-                </div>
-
-                <div class="button login">
-                    <button><span>GO</span> <i class="fa fa-check"></i></button>
-                </div>
-
-                <a href="" class="pass-forgot">Forgot your password?</a>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <footer class="page-footer center-on-small-only primary-color-dark">
 
     <div class="container-fluid">
@@ -218,8 +182,6 @@
                     <li><a href="#">Ask a question</a></li>
                 </ul>
             </div>
-
-
         </div>
     </div>
 

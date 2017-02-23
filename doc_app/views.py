@@ -14,18 +14,17 @@ def document_print_view(request, id=id):
     document = Document()
     document.add_paragraph('Декану ФИТ').alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
     document.add_paragraph('Акжаловой А. Ж.').alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
-    document.add_paragraph(str.format_map('ФИТ, {} {} курса'), request.user.speciality, request.user.study_year)\
+    document.add_paragraph(str.format('ФИТ, {} {} курса', request.user.speciality, request.user.study_year))\
         .alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
     document\
-        .add_paragraph(str.format("{} {}", request.user.first_name, request.user.last_name))\
+        .add_paragraph(str.format("{} {} \n\n\n", request.user.first_name, request.user.last_name))\
         .alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
-    document.add_paragraph('')
-    document.add_paragraph('')
-    document.add_paragraph('')
+    # document.add_paragraph('')
+    # document.add_paragraph('')
+    # document.add_paragraph('')
     document.add_heading('Заявление', level=1).alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
     document.add_paragraph('').alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
-
-    document.add_paragraph('\t\t\t{}', claim.content)
+    document.add_paragraph(str.format('\t\t\t{}', claim.content))
 
     response = HttpResponse(
         content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
