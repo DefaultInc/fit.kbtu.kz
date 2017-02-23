@@ -1,19 +1,12 @@
-from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
+from auth_app.admin import UserCreationForm as UserForm
 
+def register(request):
+    user_form = UserForm()
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            user_form.save()
+            return redirect('/')
+    return render(request, 'auth_app/registration.html', {'form': UserForm()})
 
-# Create your views here.
-def login_view(request):
-    if (request.method == "GET"):
-        return render(request, 'auth_app/login.html')
-    email = request.POST['login']
-    password = request.POST['password']
-    user = authenticate(username=email, password=password)
-    if user is not None:
-        login(request, user)
-        return redirect("/")
-    return redirect('auth_app:login')
-
-def logout_view(request):
-    logout(request)
-    return redirect('/')
