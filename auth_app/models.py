@@ -37,7 +37,7 @@ class User(SimpleEmailConfirmationUserMixin, AbstractBaseUser, PermissionsMixin)
     first_name = models.CharField(null=True, blank=True, max_length=255)
     last_name = models.CharField(null=True, blank=True, max_length=255)
     study_year = models.IntegerField(null=True)
-    speciality = models.CharField(null=True)
+    speciality = models.CharField(null=True, blank=True, max_length=64)
     objects = MyUserManager()
 
     USERNAME_FIELD = 'email'
