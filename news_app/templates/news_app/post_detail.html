@@ -13,18 +13,16 @@
             <p>Author: {{ instance.user.get_full_name }}</p>
         {% endif %}
         {{ instance.content|linebreaks }} <br>
-
         <form action="{% url 'news_app:post_delete' id=instance.id %}" method="POST">
             {% csrf_token %}
-            <input type="submit" class="btn btn-default" value="Delete Post">
+            <span class="icon-delete"><i class="fa fa-trash"></i></span><input type="submit" class="main-my-awesome-delete" value="Delete">
         </form>
-
         <div>
             <h1>Comments</h1>
             {% if request.user.is_authenticated %}
                 <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
                     {{ form.as_p }}
-                    <input type="submit" class="btn btn-default" value="Submit">
+                    <input type="submit" class="main-my-awesome-button" value="Submit">
                 </form>
                 <hr/>
             {% endif %}
@@ -34,7 +32,7 @@
                 {% if request.user == comment.author %}
                     <form action="{% url 'news_app:comment_delete' comment_id=comment.id post_id=instance.id %}" method="post">
                         {% csrf_token %}
-                        <input type="submit" class="btn btn-default" value="Delete Comment">
+                        <span class="icon-delete-comment"><i class="fa fa-trash"></i></span><input type="submit" class="main-my-awesome-delete-comment" value="">
                     </form>
                 {% endif %}
             {% endfor %}

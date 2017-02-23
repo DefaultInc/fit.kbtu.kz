@@ -9,7 +9,63 @@
   margin: auto;
 }
 
+.main-my-awesome-button {
+    color: #fff;
+    background: #0d47a1!important;
+    font-weight: 700;
+    font-size: small;
+    border: none;
+    cursor: pointer;
+    padding: 0.6rem 1rem;
+    box-shadow: 1.5px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.main-my-awesome-button:active {
+    color: #fff;
+    background: #0d47a1!important;
+    font-weight: 700;
+    font-size: small;
+    border: none;
+    cursor: pointer;
+    padding: 0.6rem;
+}
+
+.icon-delete {
+    position: relative;
+    left: 25px;
+    color: #fff;
+    top: 1px;
+    font-size: 20px;
+}
+.icon-delete-comment {
+    position: relative;
+    left: 27px;
+    bottom: 5px;
+    color: #F7484E!important;
+    font-size: 20px;
+}
+
+.main-my-awesome-delete {
+    background: #F7484E!important;
+    padding: 0.6rem;
+    padding-left: 2rem;
+    color: #fff;
+    box-shadow: 1.5px 3px 3px rgba(0,0,0,0.5);
+    cursor: pointer;
+    border: none;
+}
+
+.main-my-awesome-delete-comment {
+    background: #fff;
+    padding: 0.6rem;
+    padding-left: 2rem;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+}
+
 body { font-family: "wf_SegoeUILight"; }
+
 
 @font-face{
     font-family: 'wf_SegoeUILight';

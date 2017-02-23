@@ -55,6 +55,10 @@
                 <!--  First row-->
                 <!--    <hr class="extra-margins">-->
 
+                {% if user.is_manager %}
+                    <a href="{% url 'news_app:post_create'%}">Create new post</a><br><br>
+                {% endif %}
+
                 <!--Second row-->
                 <div class="row">
                     <!--First columnn-->
