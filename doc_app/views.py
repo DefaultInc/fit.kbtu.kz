@@ -14,27 +14,24 @@ def document_print_view(request, id=id):
     document = Document()
     document.add_paragraph('Декану ФИТ').alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
     document.add_paragraph('Акжаловой А. Ж.').alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
-    document.add_paragraph('ФИТ, ВТиПО 2 курса').alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
+    document.add_paragraph(str.format_map('ФИТ, {} {} курса'), request.user.speciality, request.user.study_year)\
+        .alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
     document\
-        .add_paragraph(request.user.first_name + " " + request.user.last_name)\
+        .add_paragraph(str.format("{} {}", request.user.first_name, request.user.last_name))\
         .alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
     document.add_paragraph('')
     document.add_paragraph('')
     document.add_paragraph('')
-    document.add_heading('Заявление ' + claim.title, level=1).alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-    fullName = document.add_paragraph('')
-    fullName.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
+    document.add_heading('Заявление', level=1).alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    document.add_paragraph('').alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
 
-    document.add_paragraph(
-        '\t\t\tПрошу разрешить мне взять предмет "Linear Algebra" and Analytic Geometry сверхкредитом '
-        'на весенний семестр 2017 года и засчитать предмет как предмет "Linear algebra". '
-        'Обязуюсь внести оплату до 19 января 2017 года')
+    document.add_paragraph('\t\t\t{}', claim.content)
 
     response = HttpResponse(
         content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     )
     document.save(response)
-    response['Content-Disposition'] = 'attachment; filename=example.docx'
+    response['Content-Disposition'] = 'attachment; filename=document.docx'
     return response
 
 

@@ -34,7 +34,10 @@ class User(SimpleEmailConfirmationUserMixin, AbstractBaseUser, PermissionsMixin)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-
+    first_name = models.CharField(null=True, blank=True, max_length=255)
+    last_name = models.CharField(null=True, blank=True, max_length=255)
+    study_year = models.IntegerField(null=True)
+    speciality = models.CharField(null=True)
     objects = MyUserManager()
 
     USERNAME_FIELD = 'email'
@@ -67,4 +70,4 @@ class User(SimpleEmailConfirmationUserMixin, AbstractBaseUser, PermissionsMixin)
         return self.is_admin
 
     def is_manager(user):
-        return user.groups.filter(name = 'Manager').exists()
+        return user.groups.filter(name='Manager').exists()
