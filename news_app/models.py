@@ -26,7 +26,7 @@ class Post(models.Model):
     Main class for news field, main CRUD and other things, just read a comments and names of the variables.
     """
     # checking for the user (if not admin (superuser) then he can not create,update or delete)
-    post_type = models.ForeignKey(PostType, null=True)
+    post_type = models.ForeignKey(PostType, null=True, blank=True)
     author = models.ForeignKey(User, default=1)
     # title field
     title = models.CharField(max_length=120, null=True, blank=True)

@@ -13,6 +13,7 @@ class PostForm(forms.ModelForm):
             "title",
             "content",
             "image",
+            "post_type",
         ]
 
 
