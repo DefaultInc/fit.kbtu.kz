@@ -2,7 +2,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^(?P<id>\d+)$', views.post_list_view, name='post_list'),
+    url(r'^(?P<id>\d*)$', views.post_list_view, name='post_list'),
     url(r'^create/$', views.post_create_view, name='post_create'),
     url(r'^(?P<id>\d+)/detail/$', views.post_detail_view, name='post_detail'),
     url(r'^(?P<id>\d+)/edit/$', views.post_update_view, name='post_update'),

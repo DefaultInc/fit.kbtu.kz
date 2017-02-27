@@ -15,8 +15,6 @@ def post_create_view(request):
     checking all of the fields, if form is valid then saving the post, if there is no image, it will upload it anyway,
     give a message that post created and redirecting to the post itself
     """
-#    if not request.user.extendeduser.is_manager:
-#        return render(request, "news_app/Http404.html")
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         instance = form.save(commit=False)
@@ -61,7 +59,10 @@ def post_list_view(request, id=None):
      queryset_list - is all of the posts, and there is a paginator in the view.
      code taken from Django documentation - for paginator, check it in the Official Documentation.
     """
-    queryset_list = Post.objects.filter(post_type_id=id)
+    if(id != ''):
+        queryset_list = Post.objects.filter(post_type_id=id)
+    else:
+        queryset_list = Post.objects.all()
     paginator = Paginator(queryset_list, 20)  # Show 20 contacts per page
     page_request_var = "page"
     page = request.GET.get(page_request_var)
