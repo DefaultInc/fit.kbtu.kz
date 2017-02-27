@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -26,6 +28,9 @@ def document_print_view(request, id=id):
     document.add_heading('Заявление', level=1).alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
     document.add_paragraph('').alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
     document.add_paragraph(str.format('\t\t\t{}', claim.content))
+    document.add_paragraph(str.format('\n \t\t\tПодпись \t\t\t\t Дата \n \t\t\t\t\t\t\t\t {}.{}.{}',
+                                      datetime.now().day, datetime.now().month, datetime.now().year))\
+                           .alighment = WD_PARAGRAPH_ALIGNMENT.RIGHT
 
     response = HttpResponse(
         content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document'

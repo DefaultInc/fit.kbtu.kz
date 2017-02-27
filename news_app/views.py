@@ -78,7 +78,7 @@ def post_list_view(request, id=None):
         "object_list": queryset,
         "title": "List",
     }
-    return render(request, "news_app/post_list.html", context)
+    return render(request, "news_app/post_list.html" , context)
 
 
 @login_required(login_url='/auth/login/')
@@ -113,7 +113,7 @@ def post_delete_view(request, id=None):
     instance = get_object_or_404(Post, id=id)
     instance.delete()
     messages.success(request, "Successfully deleted!")
-    return redirect("news_app:post_list")
+    return redirect("news_app:post_list", id='')
 
 
 def comment_delete_view(request, comment_id=None, post_id=None):

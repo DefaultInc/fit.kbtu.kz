@@ -32,7 +32,7 @@
                 {% if request.user == comment.author %}
                     <form action="{% url 'news_app:comment_delete' comment_id=comment.id post_id=instance.id %}" method="post">
                         {% csrf_token %}
-                        <span class="icon-delete-comment"><i class="fa fa-trash"></i></span><input type="submit" class="main-my-awesome-delete-comment" value="">
+                        <button type="submit" class="main-my-awesome-delete-comment" value=""><span class="icon-delete-comment"><i class="fa fa-trash"></i></span></button>
                     </form>
                 {% endif %}
             {% endfor %}
